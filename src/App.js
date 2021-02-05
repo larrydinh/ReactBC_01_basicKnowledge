@@ -1,5 +1,8 @@
 // import logo from "./logo.svg";
 import "./App.css";
+import DemoProps from "./Props/DemoProps";
+import BaiTapRenderMap from "./RenderWithMap/BaiTapRenderMap";
+import RenderWithMap from "./RenderWithMap/RenderWithMap";
 
 // import BaiTapLayOut from "./components/BaiTapLayOut/BaiTapLayOut";
 // import DataBinding from "./DataBinding/DataBinding";
@@ -14,7 +17,10 @@ function App() {
       {/* <DataBinding/> */}
       {/* <HandleEvent/> */}
       {/* <DemoState/> */}
-      <BaiTapChonXe/>
+      {/* <BaiTapChonXe/> */}
+      {/* <RenderWithMap/> */}
+      {/* <BaiTapRenderMap/> */}
+      <DemoProps/>
     </div>
 
   );
