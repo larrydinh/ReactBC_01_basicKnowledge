@@ -1,6 +1,8 @@
 // import logo from "./logo.svg";
 import "./App.css";
+import BTProductList from "./components/BaiTapLayOut/BTProductList";
 import DemoProps from "./Props/DemoProps";
+import DemoQLSP from "./Props/DemoQLSP/DemoQLSP";
 import BaiTapRenderMap from "./RenderWithMap/BaiTapRenderMap";
 import RenderWithMap from "./RenderWithMap/RenderWithMap";
 
@@ -20,9 +22,10 @@ function App() {
       {/* <BaiTapChonXe/> */}
       {/* <RenderWithMap/> */}
       {/* <BaiTapRenderMap/> */}
-      <DemoProps/>
+      {/* <DemoProps/> */}
+      {/* <BTProductList/> */}
+      <DemoQLSP />
     </div>
-
   );
 }
 
