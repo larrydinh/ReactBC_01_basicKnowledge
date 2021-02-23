@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 export default class BTProductItem extends Component {
  
-
   render() {
     let{sanPham} = this.props;
     return (

@@ -22,8 +22,9 @@ export default class SanPhamDemo extends Component {
           >
             Xem chi tiết
           </button>
+          <button onClick={()=>{this.props.themGioHang(sanPham)}}  className="btn btn-danger ml-2">Them gio hang</button>
         </div>
       </div>
-    );
+    );  
   }
 }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import GioHang from "./GioHang";
 import SanPhamDemo from "./SanPhamDemo";
 
 export default class DemoQLSP extends Component {
@@ -15,6 +16,15 @@ export default class DemoQLSP extends Component {
       giaBan: 5700000,
       hinhAnh: "./img/vsphone.jpg",
     }, //dung object luu tru thong tin
+    gioHang: [
+      // {
+      //   maSP: 1,
+      //   hinhAnh: "./img/vsphone.jpg",
+      //   tenSP: "Iphone",
+      //   gia: 1000,
+      //   soLuong: 1,
+      // },
+    ],
   };
   // data array
   mangSanPham = [
@@ -63,7 +73,12 @@ export default class DemoQLSP extends Component {
     return this.mangSanPham.map((sanPham, index) => {
       return (
         <div key={index} classname="col-4">
-            <SanPhamDemo sanPham={sanPham} xemCT={this.xemChiTiet}/>
+          <SanPhamDemo
+            sanPham={sanPham}
+            xemCT={this.xemChiTiet}
+            themGioHang={this.themGioHang}
+            
+          />
           {/* <div className="card text-left">
             <img
               className="card-img-top"
@@ -86,22 +101,83 @@ export default class DemoQLSP extends Component {
     });
   };
 
-// setState 
-xemChiTiet = (sanPhamClick)=> {
+  // setState
+  xemChiTiet = (sanPhamClick) => {
     console.log(sanPhamClick);
-    this.setState({spChiTiet:sanPhamClick})
-}
+    this.setState({ spChiTiet: sanPhamClick });
+  };
+
+  //setState
+  //Ham xu ly lam thay doi state se duoc dat tai component chua
+  themGioHang = (sanPhamClick) => {
+    //Sau khi click thì tạo ra 1 sản phẩm  giống object trong giỏ hàng
+    let spGH = {
+      maSP: sanPhamClick.maSP,
+      tenSP: sanPhamClick.tenSP,
+      gia: sanPhamClick.giaBan,
+      soLuong: 1,
+      hinhAnh: sanPhamClick.hinhAnh,
+    };
+    // this.state.gioHang.push(spGH)
+    // console.log(sanPhamClick)
+
+    let gioHangUpdate = [...this.state.gioHang];
+    // Xử lí kiểm tra state giỏ hàng có chứa dữ liệu sản phẩm đó khi click hay chưa => nếu có thì thêm vào sản phẩm đã có
+    let indexSPGH = gioHangUpdate.findIndex(
+      (sp) => sp.maSP === sanPhamClick.maSP
+    );
+    if (indexSPGH !== -1) {
+      //Tim thay index
+      gioHangUpdate[indexSPGH].soLuong += 1;
+    } else {
+      gioHangUpdate.push(spGH);
+    }
+
+    this.setState({
+      //gioHang: ..gio hang moi
+      gioHang: gioHangUpdate,
+    });
+  };
+
+  //setState
+  xoaGioHang = (maSP) => {
+    let gioHangUpdateXoa = [...this.state.gioHang];
+    // Xử lí kiểm tra state giỏ hàng có chứa dữ liệu sản phẩm đó khi click hay chưa => nếu có thì thêm vào sản phẩm đã có
+    let index = gioHangUpdateXoa.findIndex(
+      (item) => item.maSP === maSP.maSP
+    );
+    if (index !== -1) {
+      gioHangUpdateXoa.splice(index, 1);
+    } else {
+      console.log("nothing to splice")
+    }
+
+    this.setState({
+      gioHang: gioHangUpdateXoa
+    });
+  };
 
   render() {
-let {tenSP,hinhAnh,manHinh,heDieuHanh,cameraTruoc,cameraSau,ram,rom}= this.state.spChiTiet;
-
+    //bóc tách destructuring để viết nhanh hơn
+    let {
+      tenSP,
+      hinhAnh,
+      manHinh,
+      heDieuHanh,
+      cameraTruoc,
+      cameraSau,
+      ram,
+      rom,
+    } = this.state.spChiTiet;
 
     return (
       <div className="container">
+        <h1 className="mt-2">Gio hang</h1>
+        <GioHang gioHang={this.state.gioHang} xoaGioHang={this.xoaGioHang}/>
         <div className="row">{this.renderSanPham()}</div>
         <div className="row mt-5">
           <div className="col-4">
-    <h4 className="card-title text-center">{tenSP}</h4>
+            <h4 className="card-title text-center">{tenSP}</h4>
             <img
               className="card-img-top"
               src={hinhAnh}
@@ -115,11 +191,11 @@ let {tenSP,hinhAnh,manHinh,heDieuHanh,cameraTruoc,cameraSau,ram,rom}= this.state
               <thead>
                 <tr>
                   <th>Man hinh</th>
-    <th>{manHinh}</th>
+                  <th>{manHinh}</th>
                 </tr>
                 <tr>
                   <th>He dieu hanh</th>
-    <th>{heDieuHanh}</th>
+                  <th>{heDieuHanh}</th>
                 </tr>
                 <tr>
                   <th>Camera truoc</th>
@@ -131,11 +207,11 @@ let {tenSP,hinhAnh,manHinh,heDieuHanh,cameraTruoc,cameraSau,ram,rom}= this.state
                 </tr>
                 <tr>
                   <th>RAM</th>
-    <th>{ram}</th>
+                  <th>{ram}</th>
                 </tr>
                 <tr>
                   <th>ROM</th>
-    <th>{rom}</th>
+                  <th>{rom}</th>
                 </tr>
               </thead>
             </table>
