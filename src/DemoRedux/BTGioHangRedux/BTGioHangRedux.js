@@ -58,7 +58,7 @@ export default class BTGioHangRedux extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-12">{this.renderSanPham()}</div>
+          {this.renderSanPham()}
         </div>
         <div className="row mt-5">
           <div className="col-12">

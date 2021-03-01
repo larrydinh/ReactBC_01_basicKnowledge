@@ -24,9 +24,35 @@ class GioHangRedux extends Component {
                 <tr key={index}>
                   <td>{spGioHang.maSP}</td>
                   <td>{spGioHang.tenSP}</td>
-                  <td>{spGioHang.soLuong}</td>
-                  <td>{spGioHang.gia}</td>
-                  <td>{spGioHang.gia * spGioHang.soLuong}</td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        this.props.thayDoiSoLuong(spGioHang.maSP, 1);
+                      }}
+                      className="btn btn-primary mr-2"
+                    >
+                      +
+                    </button>
+                    {spGioHang.soLuong}
+                    <button
+                      onClick={() => {
+                        this.props.thayDoiSoLuong(spGioHang.maSP, -1);
+                      }}
+                      className="btn btn-primary ml-2"
+                    >
+                      -
+                    </button>
+                  </td>
+                  <td>{spGioHang.giaBan}</td>
+                  <td>{spGioHang.giaBan * spGioHang.soLuong}</td>
+                  <td><button
+                      onClick={() => {
+                        this.props.xoaSanPham(spGioHang.maSP);
+                      }}
+                      className="btn btn-danger "
+                    >
+                    Xoa
+                    </button></td>
                 </tr>
               );
             })}
@@ -38,11 +64,43 @@ class GioHangRedux extends Component {
 }
 
 //Ham chuyen state tren redux tro thanh props cua component
+//state dai dien cho rootReducer
 const mapStateToProps = (state) => {
   //Tao props tu state redux
   return {
     gioHang: state.gioHangReducer.gioHang,
   };
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    thayDoiSoLuong: (maSP, soLuong) => {
+      console.log("object", maSP, soLuong);
+      //Tao action
+      const action = {
+        type: "THAY_DOI_SO_LUONG",
+        maSP: maSP,
+        soLuong: soLuong,
+      };
+      //Dua action len reducer
+      dispatch(action);
+    },
+    xoaSanPham: (maSP) =>{
+      //Tao action 
+      const action ={ 
+        type: "XOA_SAN_PHAM",
+        maSP:maSP
+      };
+      //Dua du lieu len reducer
+      dispatch(action);
+    }
+  };
+};
+
 //Ket noi giua component va redux
-export default connect(mapStateToProps)(GioHangRedux);
+const GioHangConnectRedux = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GioHangRedux);
+export default GioHangConnectRedux;
+// khai niem HOC

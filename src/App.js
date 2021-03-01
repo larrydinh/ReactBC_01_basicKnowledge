@@ -1,6 +1,7 @@
 // import logo from "./logo.svg";
 import "./App.css";
 import BTProductList from "./components/BaiTapLayOut/BTProductList";
+import BaiTapGameXucXac from "./DemoRedux/BaiTapGameXucXac/BaiTapGameXucXac";
 import BTGioHangRedux from "./DemoRedux/BTGioHangRedux/BTGioHangRedux";
 import DemoProps from "./Props/DemoProps";
 import DemoQLSP from "./Props/DemoQLSP/DemoQLSP";
@@ -26,7 +27,8 @@ function App() {
       {/* <DemoProps/> */}
       {/* <BTProductList/> */}
       {/* <DemoQLSP /> */}
-      <BTGioHangRedux/>
+      {/* <BTGioHangRedux/> */}
+      <BaiTapGameXucXac/>
     </div>
   );
 }
