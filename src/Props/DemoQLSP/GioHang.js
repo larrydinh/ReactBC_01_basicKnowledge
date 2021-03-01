@@ -19,7 +19,7 @@ export default class GioHang extends Component {
           </thead>
           <tbody>
             {gioHang.map((spGH, index) => {
-                console.log(gioHang);
+              console.log(gioHang);
               return (
                 <tr key={index}>
                   <th>{spGH.maSP}</th>
@@ -35,16 +35,46 @@ export default class GioHang extends Component {
                   <th>{spGH.gia}</th>
                   <th>{spGH.soLuong}</th>
                   <th>{spGH.gia * spGH.soLuong}</th>
-                  <th><button onClick={()=>{
-                      this.props.xoaGioHang(spGH)
-                    //   console.log("huhu")
-                    }} className="btn btn-danger">Xoa</button></th>
+                  <th>
+                    <button onClick={()=>{this.props.tangGiamSoLuong(spGH.maSP,1)}} className="btn btn-secondary mr-1">
+                    <i class="fa fa-plus"></i></button>
+                    
+                    {spGH.soLuong}
+                    <button onClick={()=>{this.props.tangGiamSoLuong(spGH.maSP,-1)}} className="btn btn-secondary ml-1" ><i class="fa fa-minus"></i></button>
+                  </th>
+                  <th> {spGH.gia * spGH.soLuong}</th>
+                  <th>
+                    <button
+                      onClick={() => {
+                        this.props.xoaGioHang(spGH);
+                        //   console.log("huhu")
+                      }}
+                      className="btn btn-danger"
+                    >
+                      Xoa
+                    </button>
+                  </th>
                 </tr>
               );
             })}
           </tbody>
+          <tfoot>
+            <tr>
+              <td colSpan="5"></td>
+              <td>Tong tien</td>
+              <td>{this.tinhTongTien()}</td>
+            </tr>
+          </tfoot>
         </table>
       </div>
     );
+  }
+
+  tinhTongTien = () =>{
+    let tongTien =this.props.gioHang.reduce((tongTien,spGH,index)=>{
+      tongTien += spGH.soLuong * spGH.gia;
+      return tongTien;
+    },0);
+    return tongTien.toLocaleString();
   }
 }

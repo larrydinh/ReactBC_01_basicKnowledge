@@ -77,7 +77,6 @@ export default class DemoQLSP extends Component {
             sanPham={sanPham}
             xemCT={this.xemChiTiet}
             themGioHang={this.themGioHang}
-            
           />
           {/* <div className="card text-left">
             <img
@@ -143,17 +142,31 @@ export default class DemoQLSP extends Component {
   xoaGioHang = (maSP) => {
     let gioHangUpdateXoa = [...this.state.gioHang];
     // Xử lí kiểm tra state giỏ hàng có chứa dữ liệu sản phẩm đó khi click hay chưa => nếu có thì thêm vào sản phẩm đã có
-    let index = gioHangUpdateXoa.findIndex(
-      (item) => item.maSP === maSP.maSP
-    );
+    let index = gioHangUpdateXoa.findIndex((item) => item.maSP === maSP.maSP);
     if (index !== -1) {
       gioHangUpdateXoa.splice(index, 1);
     } else {
-      console.log("nothing to splice")
+      console.log("nothing to splice");
     }
-
+    /*gioHangUpdateXoa = gioHangUpdateXoa.filter(spGH => spGH.maSP !== maSP); */
     this.setState({
-      gioHang: gioHangUpdateXoa
+      gioHang: gioHangUpdateXoa,
+    });
+  };
+
+  tangGiamSoLuong = (maSP, soLuong) => {
+    let gioHangUpdate = [...this.state.gioHang];
+    //Bước 1: tìm sản phẩm trong giỏ hàng dựa vào mã sản phẩm
+    let index = gioHangUpdate.findIndex((spGH) => spGH.maSP === maSP);
+    //Bước 2: tăng số lượng
+    if (index !== -1) {
+      gioHangUpdate[index].soLuong += soLuong;
+      if (gioHangUpdate[index].soLuong <=0){gioHangUpdate[index].soLuong -=soLuong
+      return}
+    }
+    //Bước 3: setState cho gioHang
+    this.setState({
+      gioHang: gioHangUpdate,
     });
   };
 
@@ -173,7 +186,11 @@ export default class DemoQLSP extends Component {
     return (
       <div className="container">
         <h1 className="mt-2">Gio hang</h1>
-        <GioHang gioHang={this.state.gioHang} xoaGioHang={this.xoaGioHang}/>
+        <GioHang
+          gioHang={this.state.gioHang}
+          xoaGioHang={this.xoaGioHang}
+          tangGiamSoLuong={this.tangGiamSoLuong}
+        />
         <div className="row">{this.renderSanPham()}</div>
         <div className="row mt-5">
           <div className="col-4">

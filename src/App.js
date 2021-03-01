@@ -1,6 +1,7 @@
 // import logo from "./logo.svg";
 import "./App.css";
 import BTProductList from "./components/BaiTapLayOut/BTProductList";
+import BTGioHangRedux from "./DemoRedux/BTGioHangRedux/BTGioHangRedux";
 import DemoProps from "./Props/DemoProps";
 import DemoQLSP from "./Props/DemoQLSP/DemoQLSP";
 import BaiTapRenderMap from "./RenderWithMap/BaiTapRenderMap";
@@ -24,7 +25,8 @@ function App() {
       {/* <BaiTapRenderMap/> */}
       {/* <DemoProps/> */}
       {/* <BTProductList/> */}
-      <DemoQLSP />
+      {/* <DemoQLSP /> */}
+      <BTGioHangRedux/>
     </div>
   );
 }
